@@ -23,7 +23,7 @@ class DashboardTest extends TestCase
 
         $response = $this->get(route('dashboard'));
         $response->assertOk();
-        $response->assertSee('Dashboard Payroll');
-        $response->assertSee('Quick Actions');
+        $response->assertSee('PayWind Dashboard');
+        $response->assertSee('Area Utama');
     }
 }

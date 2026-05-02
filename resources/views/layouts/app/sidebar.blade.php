@@ -3,8 +3,9 @@
     <head>
         @include('partials.head')
     </head>
-    <body class="min-h-screen bg-white dark:bg-zinc-800">
-        <flux:sidebar sticky collapsible="mobile" class="border-e border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
+    <body class="min-h-screen">
+        <div class="mx-auto min-h-screen max-w-[1800px] px-3 py-3 lg:px-4">
+        <flux:sidebar sticky collapsible="mobile" class="app-shell border-e-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.94)_0%,rgba(246,250,255,0.94)_52%,rgba(240,253,250,0.9)_100%)] dark:bg-[linear-gradient(180deg,rgba(9,9,11,0.94)_0%,rgba(17,24,39,0.94)_52%,rgba(6,78,59,0.28)_100%)]">
             <flux:sidebar.header>
                 <x-app-logo :sidebar="true" href="{{ route('dashboard') }}" wire:navigate />
                 <flux:sidebar.collapse class="lg:hidden" />
@@ -39,15 +40,12 @@
 
             <flux:spacer />
 
-            <flux:sidebar.nav>
-                <flux:sidebar.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
-                    {{ __('Repository') }}
-                </flux:sidebar.item>
-
-                <flux:sidebar.item icon="book-open-text" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">
-                    {{ __('Documentation') }}
-                </flux:sidebar.item>
-            </flux:sidebar.nav>
+            <div class="mx-3 mb-3 rounded-[1.5rem] border border-white/60 bg-white/75 p-4 text-sm shadow-sm backdrop-blur dark:border-white/6 dark:bg-zinc-900/60">
+                <div class="mb-1 font-semibold text-zinc-900 dark:text-zinc-100">PayWind Workspace</div>
+                <div class="text-zinc-500 dark:text-zinc-400">
+                    Payroll, tax, BPJS, dan audit trail dalam satu panel operasional.
+                </div>
+            </div>
 
             <x-desktop-user-menu class="hidden lg:block" :name="auth()->user()->name" />
         </flux:sidebar>
@@ -108,6 +106,7 @@
         </flux:header>
 
         {{ $slot }}
+        </div>
 
         @persist('toast')
             <flux:toast.group>

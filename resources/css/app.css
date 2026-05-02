@@ -10,6 +10,7 @@
 
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-display: 'Space Grotesk', 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
 
     --color-zinc-50: #fafafa;
     --color-zinc-100: #f5f5f5;
@@ -26,6 +27,9 @@
     --color-accent: var(--color-neutral-800);
     --color-accent-content: var(--color-neutral-800);
     --color-accent-foreground: var(--color-white);
+
+    --color-sky-950: #082f49;
+    --color-teal-950: #042f2e;
 }
 
 @layer theme {
@@ -37,6 +41,9 @@
 }
 
 @layer base {
+    html {
+        @apply bg-zinc-100 text-zinc-950 antialiased dark:bg-zinc-950 dark:text-zinc-50;
+    }
 
     *,
     ::after,
@@ -44,6 +51,20 @@
     ::backdrop,
     ::file-selector-button {
         border-color: var(--color-gray-200, currentColor);
+    }
+
+    body {
+        background:
+            radial-gradient(circle at top left, rgba(56, 189, 248, 0.16), transparent 24%),
+            radial-gradient(circle at bottom right, rgba(20, 184, 166, 0.12), transparent 28%),
+            linear-gradient(180deg, #f4f7fb 0%, #eef2f7 100%);
+    }
+
+    .dark body {
+        background:
+            radial-gradient(circle at top left, rgba(56, 189, 248, 0.12), transparent 20%),
+            radial-gradient(circle at bottom right, rgba(20, 184, 166, 0.10), transparent 24%),
+            linear-gradient(180deg, #09090b 0%, #111827 100%);
     }
 }
 
@@ -61,6 +82,63 @@ select:focus[data-flux-control] {
     @apply outline-hidden ring-2 ring-accent ring-offset-2 ring-offset-accent-foreground;
 }
 
-/* \[:where(&)\]:size-4 {
-    @apply size-4;
-} */
+@layer components {
+    .app-shell {
+        @apply rounded-[2rem] border border-white/70 bg-white/80 shadow-[0_30px_80px_-40px_rgba(15,23,42,0.35)] backdrop-blur-xl dark:border-white/6 dark:bg-zinc-950/70;
+    }
+
+    .page-hero {
+        @apply relative overflow-hidden rounded-[2rem] border border-sky-200/60 bg-[radial-gradient(circle_at_top_left,_rgba(56,189,248,0.18),_transparent_24%),linear-gradient(135deg,_rgba(255,255,255,0.96)_0%,_rgba(243,248,255,0.96)_54%,_rgba(236,253,250,0.96)_100%)] p-6 shadow-sm dark:border-sky-900/30 dark:bg-[radial-gradient(circle_at_top_left,_rgba(56,189,248,0.14),_transparent_22%),linear-gradient(135deg,_rgba(9,9,11,0.96)_0%,_rgba(15,23,42,0.95)_54%,_rgba(6,78,59,0.72)_100%)];
+    }
+
+    .page-hero::after {
+        content: '';
+        @apply pointer-events-none absolute inset-0 opacity-35;
+        background-image:
+            linear-gradient(rgba(15, 23, 42, 0.04) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
+        background-size: 72px 72px;
+    }
+
+    .dark .page-hero::after {
+        background-image:
+            linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    }
+
+    .surface-card {
+        @apply rounded-[1.75rem] border border-zinc-200/80 bg-white/90 p-6 shadow-[0_16px_40px_-28px_rgba(15,23,42,0.45)] backdrop-blur dark:border-zinc-800 dark:bg-zinc-950/80;
+    }
+
+    .metric-card {
+        @apply rounded-[1.5rem] border border-white/60 bg-white/80 p-5 shadow-sm backdrop-blur dark:border-white/6 dark:bg-zinc-900/60;
+    }
+
+    .section-label {
+        @apply inline-flex items-center gap-2 rounded-full border border-sky-200 bg-sky-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-sky-700 dark:border-sky-900/40 dark:bg-sky-950/30 dark:text-sky-300;
+    }
+
+    .soft-table {
+        @apply min-w-full divide-y divide-zinc-200 text-sm dark:divide-zinc-800;
+    }
+
+    .soft-table thead {
+        @apply bg-zinc-50/90 dark:bg-zinc-900/80;
+    }
+
+    .soft-table th {
+        @apply px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.18em] text-zinc-500 dark:text-zinc-400;
+    }
+
+    .soft-table td {
+        @apply px-4 py-3 align-top;
+    }
+
+    .soft-table tbody {
+        @apply divide-y divide-zinc-100 dark:divide-zinc-800;
+    }
+
+    .soft-pill {
+        @apply inline-flex rounded-full px-3 py-1 text-xs font-semibold;
+    }
+}
