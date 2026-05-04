@@ -1,14 +1,3 @@
-FROM node:22-bookworm-slim AS frontend
-
-WORKDIR /app
-
-COPY package*.json ./
-RUN npm ci
-
-COPY . .
-RUN npm run build
-
-
 FROM composer:2 AS vendor
 
 WORKDIR /app
@@ -18,6 +7,18 @@ RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-di
 
 COPY . .
 RUN composer dump-autoload --optimize --no-dev
+
+
+FROM node:22-bookworm-slim AS frontend
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci
+
+COPY . .
+COPY --from=vendor /app/vendor ./vendor
+RUN npm run build
 
 
 FROM php:8.3-apache-bookworm
