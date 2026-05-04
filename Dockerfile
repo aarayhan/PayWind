@@ -2,11 +2,8 @@ FROM composer:2 AS vendor
 
 WORKDIR /app
 
-COPY composer.json composer.lock ./
-RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
-
 COPY . .
-RUN composer dump-autoload --optimize --no-dev
+RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
 
 
 FROM node:22-bookworm-slim AS frontend
