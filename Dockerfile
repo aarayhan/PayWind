@@ -42,6 +42,14 @@ ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf \
     && sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
+RUN { \
+        echo 'log_errors=On'; \
+        echo 'error_reporting=E_ALL'; \
+        echo 'display_errors=On'; \
+        echo 'display_startup_errors=On'; \
+        echo 'error_log=/proc/self/fd/2'; \
+    } > /usr/local/etc/php/conf.d/render-debug.ini
+
 COPY . .
 COPY --from=vendor /app/vendor ./vendor
 COPY --from=frontend /app/public/build ./public/build
