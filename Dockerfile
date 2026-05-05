@@ -18,7 +18,7 @@ COPY --from=vendor /app/vendor ./vendor
 RUN npm run build
 
 
-FROM php:8.3-apache-bookworm
+FROM php:8.4-apache-bookworm
 
 WORKDIR /var/www/html
 
@@ -49,6 +49,15 @@ RUN { \
         echo 'display_startup_errors=On'; \
         echo 'error_log=/proc/self/fd/2'; \
     } > /usr/local/etc/php/conf.d/render-debug.ini
+
+RUN printf '%s\n' \
+    '<Directory /var/www/html/public>' \
+    '    AllowOverride All' \
+    '    Require all granted' \
+    '</Directory>' \
+    'ServerName localhost' \
+    > /etc/apache2/conf-available/paywind.conf \
+    && a2enconf paywind
 
 COPY . .
 COPY --from=vendor /app/vendor ./vendor
