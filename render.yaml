@@ -34,6 +34,8 @@ services:
         sync: false
       - key: MYSQL_ATTR_SSL_CA
         value: /etc/ssl/certs/ca-certificates.crt
+      - key: MYSQL_ATTR_SSL_CA_CONTENT
+        sync: false
       - key: CACHE_STORE
         value: database
       - key: SESSION_DRIVER
