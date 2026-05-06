@@ -12,7 +12,8 @@ mkdir -p storage/framework/cache/data \
 if [ -n "${MYSQL_ATTR_SSL_CA_CONTENT:-}" ]; then
     mkdir -p storage/certs
     printf '%s\n' "$MYSQL_ATTR_SSL_CA_CONTENT" > storage/certs/aiven-ca.pem
-    chmod 600 storage/certs/aiven-ca.pem
+    chown www-data:www-data storage/certs/aiven-ca.pem
+    chmod 644 storage/certs/aiven-ca.pem
     export MYSQL_ATTR_SSL_CA=/var/www/html/storage/certs/aiven-ca.pem
 fi
 
