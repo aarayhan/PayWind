@@ -3,10 +3,12 @@
 /public/build
 /public/hot
 /public/storage
+/storage/certs
 /storage/*.key
 /storage/pail
 /vendor
 .env
+.env.render
 .env.backup
 .env.production
 .phpactor.json

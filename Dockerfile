@@ -71,6 +71,8 @@ RUN mkdir -p storage/framework/cache/data \
     && chown -R www-data:www-data storage bootstrap/cache \
     && chmod -R ug+rwx storage bootstrap/cache
 
+RUN chmod +x docker/start-container.sh
+
 EXPOSE 80
 
-CMD ["apache2-foreground"]
+CMD ["./docker/start-container.sh"]
