@@ -37,9 +37,9 @@ services:
       - key: MYSQL_ATTR_SSL_CA_CONTENT
         sync: false
       - key: CACHE_STORE
-        value: database
+        value: file
       - key: SESSION_DRIVER
-        value: database
+        value: file
       - key: SESSION_SECURE_COOKIE
         value: "true"
       - key: QUEUE_CONNECTION
